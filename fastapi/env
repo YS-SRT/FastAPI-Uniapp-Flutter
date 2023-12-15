@@ -1,0 +1,50 @@
+# Service
+Service_Port=8088
+Service_IP="127.0.0.1"
+
+# Token Setting
+TOKEN_SECRET_KEY="5227d9a310114656333dbb2e13101526a8d29917ad154b559bf3038f46c27029"
+TOKEN_ALGORITHM="HS256"
+TOKEN_ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Validate Pattern
+REGEX_PHONE="^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$"
+REGEX_EMAIL="^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$"
+
+################# Service & Server #######################
+# Redis Server
+REDIS_CONNECT_STRING="redis//localhost:6379"
+
+# Mongodb Server
+MGDB_CONNECT_STRING="mongodb://localhost:27017"
+
+# Postgresql Server
+PQDB_CONNECT_STRING="postgresql+asyncpg://postgres:123456@localhost/shop"
+
+# Minio Service
+MINIO_SERVICE_DOMAIN="play.min.io"
+MINIO_ACCESS_KEY="xxxxx"
+MINIO_SECRET_KEY="yyyyyy"
+
+############################ Async Tools ####################
+# celery setting
+CELERY_BACKEND_REDIS=${REDIS_CONNECT_STRING}/celery_backend
+CELERY_BROKER_REDIS=${REDIS_CONNECT_STRING}/celery_broker
+
+# dramatiq setting
+DRAMATIQ_BROKER_REDIS=${REDIS_CONNECT_STRING}/dramatiq_broker
+############################ AI Model Setting ###############
+
+# AI-Models
+ENABLE_YOLO=True
+ENABLE_NLLB=False
+ENABLE_SDXL_BASE=False
+ENABLE_SDXL_REFINER=False
+ENABLE_SDXL_MIXED=False
+
+YOLO_DETECTION_MODEL_CONF=0.5
+YOLO_DETECTION_MODEL_FLIPUD=0.0
+YOLO_DETECTION_MODEL_FLIPLR=0.0
+YOLO_DETECTION_MODEL_MOSAIC=0.0
+
+DETECTION_MODEL_RESP_IMG_QUARITY=100
