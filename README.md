@@ -6,7 +6,8 @@ Backend(Python):
 - sqlalchemy, motor
 - dramatiq
 - torch, transformers 
-- AI models [ YOLOv8n, NLLB200, SDXL ]
+- AI models [ YOLOv8n, NLLB200, SDXL, gpt2-xl ]
+- langchain for upper AI models
 
 Frontend:
 - uniapp(typescript + vue3)
