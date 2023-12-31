@@ -43,6 +43,7 @@ class Settings(BaseSettings):
      ENABLE_SDXL_BASE:bool
      ENABLE_SDXL_REFINER:bool
      ENABLE_SDXL_MIXED:bool
+     ENABLE_GPT2XL:bool
 
 
      DETECTION_MODEL_RESP_IMG_QUARITY:int
@@ -51,6 +52,11 @@ class Settings(BaseSettings):
      YOLO_DETECTION_MODEL_FLIPUD:float
      YOLO_DETECTION_MODEL_FLIPLR:float
      YOLO_DETECTION_MODEL_MOSAIC:float
+
+     # gpt2xl
+     QA_PROMPT_TEMPLATE:str = """Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+     {context}
+     Question:{question}"""
 
      model_config = SettingsConfigDict(env_file=".env", extra="allow")
 

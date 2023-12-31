@@ -3,20 +3,20 @@ from enum import Enum
 from PIL import Image
 from config import get_env
 
-
 env = get_env()
-cur_dir = os.getcwd()
 
 class ModelPathEnum(str, Enum):
-    YOLOv8 = "ml_models/yolov8n.pt"
-    NLLB200 = "ml_models/NLLB-200-600M"
-    SDXL = "ml_models/stable-diffusion-xl-base-1.0/sd_xl_base_1.0_0.9vae.safetensors"
-    SDXL_CONF="ml_models/stable-diffusion-xl-base-1.0/sd_xl_base.yaml"
-    SDXL_REFINER = "ml_models/stable-diffusion-xl-base-1.0/sd_xl_refiner_1.0_0.9vae.safetensors"
-    SDXL_REFINER_CONF="ml_models/stable-diffusion-xl-base-1.0/sd_xl_refiner.yaml"
+    YOLOv8 = "yolov8n.pt"
+    NLLB200 = "NLLB-200-600M"
+    Yi34BChat = "Yi-34b-Chat"
+    SDXL = "stable-diffusion-xl-base-1.0/sd_xl_base_1.0_0.9vae.safetensors"
+    SDXL_CONF="stable-diffusion-xl-base-1.0/sd_xl_base.yaml"
+    SDXL_REFINER = "stable-diffusion-xl-base-1.0/sd_xl_refiner_1.0_0.9vae.safetensors"
+    SDXL_REFINER_CONF="stable-diffusion-xl-base-1.0/sd_xl_refiner.yaml"
+    GPT2XL = "gpt2-xl"
 
     def __str__(self):
-        return os.path.join(os.getcwd(), self.value)
+        return os.path.join(os.getcwd(), "ml_models", self.value)
 
 def img_to_bytes(img:Image):
     resp_img = io.BytesIO()
@@ -25,3 +25,5 @@ def img_to_bytes(img:Image):
     return resp_img
 
 
+def get_qa_template():
+    return env.QA_PROMPT_TEMPLATE

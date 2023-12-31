@@ -8,7 +8,8 @@ from fastapi.responses import StreamingResponse
 from aiwork.yolo_model import YOLO8Detection
 from aiwork.nllb_model import NLLB200Translator
 from aiwork.img_model import Text2ImgBaseGenerator, Text2ImgRefinerGenerator, Text2ImgMixedGenerator
-from aiwork.schema import Text2Image, TextInput, TextPredict
+from aiwork.gpt2_model import GPT2XLGenerator
+from aiwork.schema import Text2Image, TextInput, TextInput2, TextInput3, TextPredict, EmbeddingsResponse
 from aiwork.utils import env, img_to_bytes
 
 ml_models = { 
@@ -16,7 +17,8 @@ ml_models = {
               "nllb_translator": NLLB200Translator() if env.ENABLE_NLLB else None,
               "sdxl_refiner":Text2ImgRefinerGenerator() if env.ENABLE_SDXL_REFINER else None,
               "sdxl_mixed":Text2ImgMixedGenerator() if env.ENABLE_SDXL_MIXED else None,
-              "sdxl_base": Text2ImgBaseGenerator() if env.ENABLE_SDXL_BASE else None
+              "sdxl_base": Text2ImgBaseGenerator() if env.ENABLE_SDXL_BASE else None,
+              "gpt2xl": GPT2XLGenerator() if env.ENABLE_GPT2XL else None
              }
 
 aiAPI = APIRouter()
@@ -58,6 +60,19 @@ async def sdxl_base_text2img(input:TextInput):
     predict_img = ml_models["sdxl_mixed"].predict(input.text)
     return StreamingResponse(content=img_to_bytes(predict_img), media_type="image/jpeg")
 
+@aiAPI.post("/gpt2xl_gc")
+async def gpt2xl_gc(input:TextInput):
+    return {"gpt2xl": ml_models["gpt2xl"].predict(input.text)}
 
+@aiAPI.post("/gpt2xl_embedding_gc")
+async def gpt2xl_embedding_gc(input:TextInput2):
+    return {"gpt2xl": ml_models["gpt2xl"].predict_qa(input.text, input.content)}
+
+@aiAPI.post("/gpt2xl_embedding")
+async def gpt2xl_embedding(input:TextInput):
+    embeddings = ml_models["gpt2xl"].get_input_embedding(input.text)
+    return EmbeddingsResponse(model="gpt2xl",data=embeddings)
+
+    
 
 
